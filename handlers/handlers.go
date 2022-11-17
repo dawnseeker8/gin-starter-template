@@ -4,10 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// HandleHealthCheck handler to health-check re4quest
 func HandleHealthCheck(c *gin.Context) {
 
-	c.JSON(200, gin.H{
-		"message": "System running OK",
-	})
-
+	c.String(200, "OK")
 }

@@ -19,13 +19,17 @@ func main() {
 		logger.Debug("cannot load config: ", zap.String("error", err.Error()))
 	}
 
-	router := gin.Default()
+	router := setupRouter()
 
 	router.Use(ginzap.Ginzap(logger, time.RFC3339, true))
 
 	router.Use(ginzap.RecoveryWithZap(logger, true))
 
-	router.GET("/health-check", handlers.HandleHealthCheck)
-
 	router.Run(config.ServerAddress)
+}
+
+func setupRouter() *gin.Engine {
+	r := gin.Default()
+	r.GET("/health-check", handlers.HandleHealthCheck)
+	return r
 }

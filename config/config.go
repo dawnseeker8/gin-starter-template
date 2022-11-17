@@ -2,6 +2,7 @@ package config
 
 import "github.com/spf13/viper"
 
+// Config is the configuration for the whole gin server
 type Config struct {
 	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
 	DbHost        string `mapstructure:"DB_HOST"`
@@ -12,6 +13,7 @@ type Config struct {
 	DbSslMode     string `mapstructure:"DB_SSL_MODE"`
 }
 
+// LoadConfig will load the configuration setting from .env file
 func LoadConfig() (config Config, err error) {
 	viper.SetConfigFile(".env")
 
