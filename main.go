@@ -3,29 +3,26 @@ package main
 import (
 	"time"
 
-	"dawnseek.com/gin-starter/config"
-	"dawnseek.com/gin-starter/handlers"
+	"dawnseek.com/gin-starter/core/config"
+	"dawnseek.com/gin-starter/core/handlers"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
+	_ "github.com/joho/godotenv/autoload"
 	"go.uber.org/zap"
 )
 
 func main() {
 	logger, _ := zap.NewProduction()
 
-	config, err := config.LoadConfig()
-
-	if err != nil {
-		logger.Debug("cannot load config: ", zap.String("error", err.Error()))
-	}
-
 	router := setupRouter()
+
+	cfg := config.LoadConfig()
 
 	router.Use(ginzap.Ginzap(logger, time.RFC3339, true))
 
 	router.Use(ginzap.RecoveryWithZap(logger, true))
 
-	router.Run(config.ServerAddress)
+	router.Run(cfg.ServerAddress)
 }
 
 func setupRouter() *gin.Engine {

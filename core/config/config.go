@@ -1,10 +1,10 @@
 package config
 
-import "github.com/spf13/viper"
+import "os"
 
 // Config is the configuration for the whole gin server
 type Config struct {
-	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
+	ServerAddress string `default:"0.0.0.0:8080"`
 	DbHost        string `mapstructure:"DB_HOST"`
 	DbUser        string `mapstructure:"DB_USER"`
 	DbPassword    string `mapstructure:"DB_PASSWORD"`
@@ -14,16 +14,12 @@ type Config struct {
 }
 
 // LoadConfig will load the configuration setting from .env file
-func LoadConfig() (config Config, err error) {
-	viper.SetConfigFile(".env")
+func LoadConfig() (config Config) {
 
-	viper.AutomaticEnv()
-
-	err = viper.ReadInConfig()
-	if err != nil {
-		return
+	if os.Getenv("SERVER_ADDRESS") == "" {
+		config.ServerAddress = "0.0.0.0:8080"
+	} else {
+		config.ServerAddress = os.Getenv("SERVER_ADDRESS")
 	}
-
-	err = viper.Unmarshal(&config)
-	return
+	return config
 }
