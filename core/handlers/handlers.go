@@ -4,7 +4,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// HandleHealthCheck handler to health-check re4quest
+// @Summary  HandleHealthCheck handler to health-check re4quest
+// @Schemes
+// @Description health-check end point to return the healthy status of API.
+// @Tags example
+// @Accept json
+// @Produce json
+// @Success 200 {string} OK
+// @Router /health-check [get]
 func HandleHealthCheck(c *gin.Context) {
 
 	c.String(200, "OK")

@@ -13,5 +13,9 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
-
+/docs/**
 .env
+
+__debug_bin
+
+gin-starter
