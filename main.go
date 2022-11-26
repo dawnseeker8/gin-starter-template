@@ -5,6 +5,8 @@ import (
 
 	"dawnseek.com/gin-starter/core/config"
 	"dawnseek.com/gin-starter/core/handlers"
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/redis"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
 	_ "github.com/joho/godotenv/autoload"
@@ -30,24 +32,50 @@ import (
 // @BasePath /
 // @schemes http https
 func main() {
-	logger, _ := zap.NewProduction()
-
-	router := setupRouter()
-
-	cfg := config.LoadConfig()
-
-	router.Use(ginzap.Ginzap(logger, time.RFC3339, true))
-
-	router.Use(ginzap.RecoveryWithZap(logger, true))
-
-	router.Run(cfg.ServerAddress)
+	startServer()
 }
 
-func setupRouter() *gin.Engine {
+func startServer() {
+
 	r := gin.Default()
+
+	setupLogger(r)
+
+	cfg := config.LoadConfig()
+	config.InitAuthConfig(&cfg)
+
+	setupSession(r, &cfg)
+	setupRouter(r)
+
+	r.Run(cfg.ServerAddress)
+}
+
+func setupLogger(r *gin.Engine) {
+	logger, _ := zap.NewProduction()
+
+	gin.ForceConsoleColor()
+
+	r.Use(ginzap.Ginzap(logger, time.RFC3339, true))
+
+	r.Use(ginzap.RecoveryWithZap(logger, true))
+}
+
+func setupSession(r *gin.Engine, cfg *config.Config) {
+	store, _ := redis.NewStore(10, "tcp", cfg.RedisURL, "", []byte(cfg.SessionSecret))
+	r.Use(sessions.Sessions(cfg.SessionName, store))
+}
+
+func setupRouter(r *gin.Engine) {
+
 	r.GET("/health-check", handlers.HandleHealthCheck)
+
+	auth := r.Group("/auth")
+	{
+		auth.POST("/signin", handlers.Signin)
+		auth.POST("/logout", handlers.Logout)
+		auth.POST("/getAccount", handlers.GetAccount)
+	}
 
 	//For Swagger
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-	return r
 }

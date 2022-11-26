@@ -13,6 +13,6 @@ import (
 // @Success 200 {string} OK
 // @Router /health-check [get]
 func HandleHealthCheck(c *gin.Context) {
-
-	c.String(200, "OK")
+	a := ApiHandler{c}
+	a.String(200, "OK")
 }
