@@ -12,9 +12,9 @@ import (
 
 // @Title Signin
 // @Description sign in as a member
-// @Param   code     QueryString    string  true        "The code to sign in"
-// @Param   state     QueryString    string  true        "The state"
-// @Success 200 {object} controllers.api_controller.Response The Response object
+// @Param   code     query    string  true        "The code to sign in"
+// @Param   state     query    string  true        "The state"
+// @Success 200
 // @router /signin [post]
 // @Tag Account API
 func Signin(c *gin.Context) {
@@ -61,7 +61,7 @@ func SetUserField(user *casdoorsdk.User, field string, value string) {
 
 // @Title Logout
 // @Description sign out the current member
-// @Success 200 {object} controllers.api_controller.Response The Response object
+// @Success 200
 // @router /Logout [post]
 // @Tag Account API
 func Logout(c *gin.Context) {
@@ -84,7 +84,7 @@ func Logout(c *gin.Context) {
 
 // @Title GetAccount
 // @Description Get current account
-// @Success 200 {object} controllers.api_controller.Response The Response object
+// @Success 200
 // @router /get-account [get]
 // @Tag Account API
 func GetAccount(c *gin.Context) {
