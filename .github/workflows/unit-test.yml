@@ -31,6 +31,12 @@ jobs:
       - name: Verify dependencies
         run: go mod verify
 
+      - name: Install swag
+        run: go install github.com/swaggo/swag/cmd/swag@latest
+
+      - name: generate swagger doc
+        run: swag init
+
       - name: Build
         run: go build -v ./...
 
@@ -48,12 +54,6 @@ jobs:
 
       - name: Run golint
         run: golint ./...
-
-      - name: Install swag
-        run: go install github.com/swaggo/swag/cmd/swag@latest
-
-      - name: generate swagger doc
-        run: swag init
 
       - name: Run tests
         run: go test -race -vet=off ./...
