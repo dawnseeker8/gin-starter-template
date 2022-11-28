@@ -5,6 +5,7 @@ import (
 
 	"dawnseek.com/gin-starter/core/config"
 	"dawnseek.com/gin-starter/core/handlers"
+	"dawnseek.com/gin-starter/core/middlewares"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/redis"
 	ginzap "github.com/gin-contrib/zap"
@@ -45,7 +46,7 @@ func startServer() {
 	config.InitAuthConfig(&cfg)
 
 	setupSession(r, &cfg)
-	setupRouter(r)
+	setupRouter(r, &cfg)
 
 	r.Run(cfg.ServerAddress)
 }
@@ -65,17 +66,19 @@ func setupSession(r *gin.Engine, cfg *config.Config) {
 	r.Use(sessions.Sessions(cfg.SessionName, store))
 }
 
-func setupRouter(r *gin.Engine) {
+func setupRouter(r *gin.Engine, cfg *config.Config) {
 
 	r.GET("/health-check", handlers.HandleHealthCheck)
 
 	auth := r.Group("/auth")
 	{
 		auth.POST("/signin", handlers.Signin)
-		auth.POST("/logout", handlers.Logout)
-		auth.POST("/getAccount", handlers.GetAccount)
+		auth.POST("/logout", middlewares.SessionProtect, handlers.Logout)
+		auth.POST("/getAccount", middlewares.SessionProtect, handlers.GetAccount)
 	}
 
 	//For Swagger
-	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	if cfg.SwaggerEnabled {
+		r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
+	}
 }

@@ -15,6 +15,7 @@ var jwtPublicKey string
 // Config is the configuration for the whole gin server
 type Config struct {
 	ServerAddress       string `default:"0.0.0.0:8080"`
+	SwaggerEnabled      bool   `default:"false"`
 	CasdoorEndpoint     string
 	CasdoorClientId     string
 	CasdoorClientSecret string
@@ -44,6 +45,13 @@ func LoadConfig() (config Config) {
 	config.RedisURL = os.Getenv("REDIS_URL")
 	config.SessionSecret = os.Getenv("SESSION_SECRET")
 	config.SessionName = os.Getenv("SESSION_NAME")
+
+	enabled := os.Getenv("SWAGGER_ENABLED")
+	if enabled != "" && enabled == "true" {
+		config.SwaggerEnabled = true
+	} else {
+		config.SwaggerEnabled = false
+	}
 
 	return config
 }

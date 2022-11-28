@@ -66,19 +66,17 @@ func SetUserField(user *casdoorsdk.User, field string, value string) {
 // @Tag Account API
 func Logout(c *gin.Context) {
 	a := ApiHandler{c}
-	claims := a.GetSessionClaims()
+	claims := c.MustGet("claim").(casdoorsdk.Claims)
 
-	if claims != nil {
-		_, err := UpdateMemberOnlineStatus(&claims.User, false, utils.GetCurrentTime())
-		if err != nil {
-			a.JSON(http.StatusInternalServerError, gin.H{"error": "Logout failure"})
-			return
-		}
-
-		a.SetSessionClaims(nil)
-
-		a.JSON(http.StatusOK, gin.H{"message": "ok"})
+	_, err := UpdateMemberOnlineStatus(&claims.User, false, utils.GetCurrentTime())
+	if err != nil {
+		a.JSON(http.StatusInternalServerError, gin.H{"error": "Logout failure"})
+		return
 	}
+
+	a.SetSessionClaims(nil)
+
+	a.JSON(http.StatusOK, gin.H{"message": "ok"})
 
 }
 
@@ -91,12 +89,8 @@ func GetAccount(c *gin.Context) {
 	// if c.RequireSignedIn() {
 	// 	return
 	// }
+	claims := c.MustGet("claim").(casdoorsdk.Claims)
 
-	a := ApiHandler{c}
+	c.JSON(http.StatusOK, &claims.User)
 
-	user := a.GetSessionUser()
-
-	if user != nil {
-		a.JSON(http.StatusOK, user)
-	}
 }
