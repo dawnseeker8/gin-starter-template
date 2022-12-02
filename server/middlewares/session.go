@@ -3,8 +3,10 @@ package middlewares
 import (
 	"net/http"
 
+	"dawnseek.com/gin-starter/config"
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
 	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/redis"
 	"github.com/gin-gonic/gin"
 )
 
@@ -20,4 +22,9 @@ func SessionProtect(c *gin.Context) {
 	claims := s.(casdoorsdk.Claims)
 	c.Set("claim", claims)
 	c.Next()
+}
+
+func SetupSessions(r *gin.Engine, cfg *config.Config) {
+	store, _ := redis.NewStore(10, "tcp", cfg.RedisURL, "", []byte(cfg.SessionSecret))
+	r.Use(sessions.Sessions(cfg.SessionName, store))
 }

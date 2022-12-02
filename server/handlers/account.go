@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"dawnseek.com/gin-starter/core/utils"
+	"dawnseek.com/gin-starter/server/utils"
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
 	"github.com/gin-gonic/gin"
 )
