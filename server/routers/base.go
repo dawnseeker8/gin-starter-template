@@ -13,7 +13,7 @@ func Init(r *gin.Engine, cfg *config.Config) {
 
 	r.GET("/health-check", handlers.HandleHealthCheck)
 
-	auth := r.Group("/auth")
+	auth := r.Group("/api")
 	{
 		auth.POST("/signin", handlers.Signin)
 		auth.POST("/logout", middlewares.SessionProtect, handlers.Logout)
