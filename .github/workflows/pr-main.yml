@@ -1,4 +1,4 @@
-name: Audit
+name: branch-pr
 
 on:
   pull_request:
@@ -41,3 +41,5 @@ jobs:
 
       - name: Test docker images
         run: docker build -t gin-starter .
+
+
