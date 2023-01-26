@@ -28,3 +28,5 @@ func SetupSessions(r *gin.Engine, cfg *config.Config) {
 	store, _ := redis.NewStore(10, "tcp", cfg.RedisURL, "", []byte(cfg.SessionSecret))
 	r.Use(sessions.Sessions(cfg.SessionName, store))
 }
+
+f

@@ -41,3 +41,5 @@ jobs:
 
       - name: Test docker images
         run: docker build -t gin-starter .
+
+
