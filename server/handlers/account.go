@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	_ "embed"
+	_ "embed" // embed is used to embed the static files
 	"fmt"
 	"net/http"
 
@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Signin to the system with the given code and state from the casdoor server
 // @Title Signin
 // @Description sign in as a member
 // @Param   code     query    string  true        "The code to sign in"
@@ -18,7 +19,7 @@ import (
 // @router /signin [post]
 // @Tag Account API
 func Signin(c *gin.Context) {
-	a := ApiHandler{c}
+	a := APIHandler{c}
 	code := a.Query("code")
 	state := a.Query("state")
 
@@ -55,17 +56,19 @@ func UpdateMemberOnlineStatus(user *casdoorsdk.User, isOnline bool, lastActionDa
 	return casdoorsdk.UpdateUserForColumns(user, []string{"isOnline", "properties"})
 }
 
+// SetUserField sets the value of the given field of the user.
 func SetUserField(user *casdoorsdk.User, field string, value string) {
 	user.Properties[field] = value
 }
 
+// Logout from the system
 // @Title Logout
 // @Description sign out the current member
 // @Success 200
 // @router /Logout [post]
 // @Tag Account API
 func Logout(c *gin.Context) {
-	a := ApiHandler{c}
+	a := APIHandler{c}
 	claims := c.MustGet("claim").(casdoorsdk.Claims)
 
 	_, err := UpdateMemberOnlineStatus(&claims.User, false, utils.GetCurrentTime())
@@ -80,6 +83,7 @@ func Logout(c *gin.Context) {
 
 }
 
+// GetAccount gets the current account
 // @Title GetAccount
 // @Description Get current account
 // @Success 200
