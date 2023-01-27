@@ -8,11 +8,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ApiHandler struct {
+// APIHandler is the base handler for all the handlers
+type APIHandler struct {
 	*gin.Context
 }
 
-func (a *ApiHandler) GetSessionClaims() *casdoorsdk.Claims {
+// GetSessionClaims gets the claims from the session
+func (a *APIHandler) GetSessionClaims() *casdoorsdk.Claims {
 	session := sessions.Default(a.Context)
 	s := session.Get("user")
 	if s == nil {
@@ -24,7 +26,8 @@ func (a *ApiHandler) GetSessionClaims() *casdoorsdk.Claims {
 	return &claims
 }
 
-func (a *ApiHandler) SetSessionClaims(claims *casdoorsdk.Claims) {
+// SetSessionClaims sets the claims to the session
+func (a *APIHandler) SetSessionClaims(claims *casdoorsdk.Claims) {
 	session := sessions.Default(a.Context)
 	if claims == nil {
 		session.Delete("user")
@@ -35,7 +38,8 @@ func (a *ApiHandler) SetSessionClaims(claims *casdoorsdk.Claims) {
 	session.Save()
 }
 
-func (a *ApiHandler) GetSessionUser() *casdoorsdk.User {
+// GetSessionUser gets the user from the session
+func (a *APIHandler) GetSessionUser() *casdoorsdk.User {
 	claims := a.GetSessionClaims()
 	if claims == nil {
 

@@ -9,6 +9,7 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
+// Init initializes the routers
 func Init(r *gin.Engine, cfg *config.Config) {
 
 	r.GET("/health-check", handlers.HandleHealthCheck)

@@ -6,9 +6,10 @@ import (
 	"dawnseek.com/gin-starter/server/middlewares"
 	"dawnseek.com/gin-starter/server/routers"
 	"github.com/gin-gonic/gin"
-	_ "github.com/joho/godotenv/autoload"
+	_ "github.com/joho/godotenv/autoload" // godotenv is used to load the .env file
 )
 
+// Start a gin server with the given config
 func Start() {
 
 	r, cfg := InitServer()
@@ -16,6 +17,7 @@ func Start() {
 	r.Run(cfg.ServerAddress)
 }
 
+// InitServer initializes the gin server with the given config
 func InitServer() (*gin.Engine, config.Config) {
 	r := gin.Default()
 

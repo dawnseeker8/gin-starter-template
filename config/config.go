@@ -1,12 +1,12 @@
 package config
 
 import (
-	_ "embed"
+	_ "embed" // embed is used to embed the jwt public key
 	"os"
 	"strings"
 
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
-	_ "github.com/joho/godotenv/autoload"
+	_ "github.com/joho/godotenv/autoload" // godotenv is used to load the .env file
 )
 
 //go:embed token_jwt_key.pem
@@ -17,7 +17,7 @@ type Config struct {
 	ServerAddress       string `default:"0.0.0.0:8080"`
 	SwaggerEnabled      bool   `default:"false"`
 	CasdoorEndpoint     string
-	CasdoorClientId     string
+	CasdoorClientID     string
 	CasdoorClientSecret string
 	CasdoorOrganization string
 	CasdoorAppName      string
@@ -37,7 +37,7 @@ func LoadConfig() (config Config) {
 	}
 
 	config.CasdoorEndpoint = strings.TrimRight(os.Getenv("CASDOOR_ENDPOINT"), "/")
-	config.CasdoorClientId = os.Getenv("CASDOOR_CLIENT_ID")
+	config.CasdoorClientID = os.Getenv("CASDOOR_CLIENT_ID")
 	config.CasdoorClientSecret = os.Getenv("CASDOOR_CLIENT_SECRET")
 	config.CasdoorOrganization = os.Getenv("CASDOOR_ORGANIZATION")
 	config.CasdoorAppName = os.Getenv("CASDOOR_APP_NAME")
@@ -56,7 +56,8 @@ func LoadConfig() (config Config) {
 	return config
 }
 
+// InitAuthConfig will initialize the casdoor sdk
 func InitAuthConfig(cfg *Config) {
 
-	casdoorsdk.InitConfig(cfg.CasdoorEndpoint, cfg.CasdoorClientId, cfg.CasdoorClientSecret, jwtPublicKey, cfg.CasdoorOrganization, cfg.CasdoorAppName)
+	casdoorsdk.InitConfig(cfg.CasdoorEndpoint, cfg.CasdoorClientID, cfg.CasdoorClientSecret, jwtPublicKey, cfg.CasdoorOrganization, cfg.CasdoorAppName)
 }

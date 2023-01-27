@@ -10,6 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SessionProtect protects the routes with session
 func SessionProtect(c *gin.Context) {
 	session := sessions.Default(c)
 	s := session.Get("claim")
@@ -24,6 +25,7 @@ func SessionProtect(c *gin.Context) {
 	c.Next()
 }
 
+// SetupSessions sets up the session
 func SetupSessions(r *gin.Engine, cfg *config.Config) {
 	store, _ := redis.NewStore(10, "tcp", cfg.RedisURL, "", []byte(cfg.SessionSecret))
 	r.Use(sessions.Sessions(cfg.SessionName, store))

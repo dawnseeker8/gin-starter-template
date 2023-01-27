@@ -8,6 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
+// SetupLogger sets up the zap logger with console color
 func SetupLogger(r *gin.Engine) {
 	logger, _ := zap.NewProduction()
 
