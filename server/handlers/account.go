@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"dawnseek.com/gin-starter/server/models"
 	"dawnseek.com/gin-starter/server/utils"
 	"github.com/casdoor/casdoor-go-sdk/casdoorsdk"
 	"github.com/gin-gonic/gin"
@@ -25,13 +26,13 @@ func Signin(c *gin.Context) {
 
 	token, err := casdoorsdk.GetOAuthToken(code, state)
 	if err != nil {
-		a.JSON(http.StatusBadRequest, err)
+		a.JSON(http.StatusBadRequest, models.TokenResponse{Status: "error", Message: err.Error()})
 		return
 	}
 
 	claims, err := casdoorsdk.ParseJwtToken(token.AccessToken)
 	if err != nil {
-		a.JSON(http.StatusBadRequest, err)
+		a.JSON(http.StatusBadRequest, models.TokenResponse{Status: "error", Message: err.Error()})
 		return
 	}
 
@@ -42,7 +43,7 @@ func Signin(c *gin.Context) {
 	}
 
 	a.SetSessionClaims(claims)
-	a.JSON(http.StatusOK, claims)
+	a.JSON(http.StatusOK, models.TokenResponse{Status: "ok", Message: "Sign in successfully", User: claims.User})
 }
 
 // UpdateMemberOnlineStatus updates member's online information.
