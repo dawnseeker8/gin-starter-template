@@ -2,6 +2,7 @@ package routers
 
 import (
 	"dawnseek.com/gin-starter/config"
+
 	"dawnseek.com/gin-starter/server/handlers"
 	"dawnseek.com/gin-starter/server/middlewares"
 	"github.com/gin-gonic/gin"
