@@ -3,7 +3,7 @@ module dawnseek.com/gin-starter
 go 1.19
 
 require (
-	github.com/casdoor/casdoor-go-sdk v0.19.0
+	github.com/casdoor/casdoor-go-sdk v0.20.0
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/sessions v0.0.5
 	github.com/gin-gonic/gin v1.8.2
