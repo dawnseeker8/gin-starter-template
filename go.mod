@@ -1,6 +1,6 @@
 module dawnseek.com/gin-starter
 
-go 1.19
+go 1.20
 
 require (
 	github.com/casdoor/casdoor-go-sdk v0.19.0
