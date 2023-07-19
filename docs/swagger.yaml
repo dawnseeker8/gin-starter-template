@@ -38,7 +38,7 @@ paths:
             type: string
       summary: HandleHealthCheck handler to health-check re4quest
       tags:
-      - example
+      - health-check
   /signin:
     post:
       description: sign in as a member
@@ -56,6 +56,8 @@ paths:
       responses:
         "200":
           description: OK
+      tags:
+      - accounts
 schemes:
 - http
 - https

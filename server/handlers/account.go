@@ -12,13 +12,14 @@ import (
 )
 
 // Signin to the system with the given code and state from the casdoor server
-// @Title Signin
+// @Title       Signin
 // @Description sign in as a member
-// @Param   code     query    string  true        "The code to sign in"
-// @Param   state     query    string  true        "The state"
-// @Success 200
-// @router /signin [post]
-// @Tag Account API
+// @Param       code  query string true "The code to sign in"
+// @Param       state query string true "The state"
+// @Tags        accounts
+// @Success     200
+// @router      /signin [post]
+// @Tag         Account API
 func Signin(c *gin.Context) {
 	a := APIHandler{c}
 	code := a.Query("code")
@@ -63,11 +64,11 @@ func SetUserField(user *casdoorsdk.User, field string, value string) {
 }
 
 // Logout from the system
-// @Title Logout
+// @Title       Logout
 // @Description sign out the current member
-// @Success 200
-// @router /Logout [post]
-// @Tag Account API
+// @Success     200
+// @router      /Logout [post]
+// @Tag         Account API
 func Logout(c *gin.Context) {
 	a := APIHandler{c}
 	claims := c.MustGet("claim").(casdoorsdk.Claims)
@@ -85,11 +86,11 @@ func Logout(c *gin.Context) {
 }
 
 // GetAccount gets the current account
-// @Title GetAccount
+// @Title       GetAccount
 // @Description Get current account
-// @Success 200
-// @router /get-account [get]
-// @Tag Account API
+// @Success     200
+// @router      /get-account [get]
+// @Tag         Account API
 func GetAccount(c *gin.Context) {
 	// if c.RequireSignedIn() {
 	// 	return

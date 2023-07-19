@@ -55,7 +55,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "health-check"
                 ],
                 "summary": "HandleHealthCheck handler to health-check re4quest",
                 "responses": {
@@ -71,6 +71,9 @@ const docTemplate = `{
         "/signin": {
             "post": {
                 "description": "sign in as a member",
+                "tags": [
+                    "accounts"
+                ],
                 "parameters": [
                     {
                         "type": "string",
