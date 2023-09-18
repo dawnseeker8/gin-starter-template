@@ -42,8 +42,8 @@ github.com/boj/redistore v0.0.0-20180917114910-cd5dcc76aeff/go.mod h1:+RTT1BOk5P
 github.com/bytedance/sonic v1.5.0/go.mod h1:ED5hyg4y6t3/9Ku1R6dU/4KyJ48DZ4jPhfY1O2AihPM=
 github.com/bytedance/sonic v1.9.2 h1:GDaNjuWSGu09guE9Oql0MSTNhNCLlWwO8y/xM5BzcbM=
 github.com/bytedance/sonic v1.9.2/go.mod h1:i736AoUSYt75HyZLoJW9ERYxcy6eaN6h4BZXU064P/U=
-github.com/casdoor/casdoor-go-sdk v0.23.3 h1:VCMyau2ieEtoa6NKs6Xvrx3I9IUNJw3qnnsytvq4O48=
-github.com/casdoor/casdoor-go-sdk v0.23.3/go.mod h1:MBed3ISHQfXTtoOCAk5T8l5lt4wFvsyynrw0awggydY=
+github.com/casdoor/casdoor-go-sdk v0.30.0 h1:qUoDvmFyCLfLZpMG81XMkY/8h86z5fdoiy5rfmy+afo=
+github.com/casdoor/casdoor-go-sdk v0.30.0/go.mod h1:MBed3ISHQfXTtoOCAk5T8l5lt4wFvsyynrw0awggydY=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
 github.com/chenzhuoyu/base64x v0.0.0-20211019084208-fb5309c8db06/go.mod h1:DH46F32mSOjUmXrMHnKwZdA8wcEefY7UVqBKYGjpdQY=
 github.com/chenzhuoyu/base64x v0.0.0-20221115062448-fe3a3abad311 h1:qSGYFH7+jGhDF8vLC+iwCD4WpbV1EBDSzWkJODFLams=
